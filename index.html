@@ -54,6 +54,55 @@
     .gower-hero { padding: 40px; margin-top: 20px; }
     .gower-hero-img { width: 100%; height: 75vh; object-fit: cover; border-radius: 0; }
 
+    /* ⚠️ [신규 추가] 저널 & 프레스 섹션 (3열 미니멀 에디토리얼 레이아웃) */
+    .gower-journal { padding: 80px 40px 40px 40px; }
+    .journal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 100%;
+    }
+    .journal-item {
+      text-decoration: none;
+      color: var(--gower-text-black);
+      display: flex;
+      flex-direction: column;
+    }
+    .journal-img-box {
+      width: 100%;
+      height: 450px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .journal-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .journal-item:hover .journal-img-box img {
+      transform: scale(1.03);
+    }
+    .journal-date {
+      font-size: 0.75rem;
+      color: var(--gower-text-gray);
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .journal-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: 0.02em;
+      transition: color 0.3s ease;
+    }
+    .journal-item:hover .journal-title {
+      color: var(--gower-text-gray);
+    }
+
     /* 4. 제품 슬라이드 섹션 공통 구조 */
     .gower-products { padding: 80px 0; position: relative; }
     .gower-section-title {
@@ -64,7 +113,7 @@
     /* 슬라이더 외부 컨테이너 */
     .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 0 40px; }
     
-    /* ⚠️ [패치] 슬라이드 간격 2배 확대 (40px -> 80px) */
+    /* 슬라이드 간격 2배 확대 (80px) */
     .gower-slider {
       display: flex; gap: 80px; padding-bottom: 10px;
       overflow-x: auto; scroll-snap-type: x mandatory;
@@ -73,7 +122,7 @@
     .gower-slider::-webkit-scrollbar { display: none; }
     .gower-slider:active { cursor: grabbing; }
 
-    /* 슬라이드 화살표 공통 (바우어 스타일) */
+    /* 슬라이드 화살표 공통 */
     .slider-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       background: none; border: none; font-size: 1.5rem; color: var(--gower-text-black);
@@ -82,14 +131,12 @@
     }
     .slider-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
     
-    /* ---------------------------------------------------- */
     /* 섹션 1: 컬렉션 슬라이드 */
-    /* ---------------------------------------------------- */
     #productWrap .slider-btn.prev { left: 45px; }
     #productWrap .slider-btn.next { right: 45px; }
 
     .gower-slide-item {
-      flex: 0 0 calc(35% - 40px); /* 늘어난 여백만큼 폭 정밀 조정 */
+      flex: 0 0 calc(35% - 40px);
       scroll-snap-align: start; overflow: hidden;
     }
     .gower-slide-item img {
@@ -102,14 +149,12 @@
       letter-spacing: 0.05em; text-align: center;
     }
 
-    /* ---------------------------------------------------- */
-    /* 섹션 2: In The Wild 슬라이드 (바우어 아담한 사이즈 유지) */
-    /* ---------------------------------------------------- */
+    /* 섹션 2: In The Wild 슬라이드 (아담한 사이즈) */
     #wildWrap .slider-btn.prev { left: 20px; }
     #wildWrap .slider-btn.next { right: 20px; }
     
     .wild-slide-item {
-      flex: 0 0 calc(22% - 40px); /* 늘어난 여백 반영 */
+      flex: 0 0 calc(22% - 40px);
       scroll-snap-align: start; overflow: hidden;
     }
     .wild-slide-item img {
@@ -141,6 +186,10 @@
     .footer-dot { font-size: 0.5rem; }
 
     /* 모바일 반응형 */
+    @media (max-width: 900px) {
+      .journal-grid { grid-template-columns: 1fr; gap: 40px; } /* 모바일에서는 세로 1열 배치 */
+      .journal-img-box { height: 350px; }
+    }
     @media (max-width: 768px) {
       .gower-header { padding: 20px; }
       .gower-logo { font-size: 1.2rem; }
@@ -149,7 +198,7 @@
       .gower-products { padding: 60px 0; }
       .gower-slider-wrap { padding: 0 20px; }
       
-      .gower-slider { gap: 40px; } /* 모바일에서는 간격을 조금 줄임 */
+      .gower-slider { gap: 40px; }
       .gower-slide-item { flex: 0 0 calc(85% - 20px); }
       .gower-slide-item img { height: 400px; }
       
@@ -169,6 +218,7 @@
     <a href="#" class="gower-logo">G O W E R</a>
     <nav class="gower-nav">
       <a href="#home">홈</a>
+      <a href="#journal">저널</a>
       <a href="#product">제품</a>
       <a href="#contact">문의</a>
     </nav>
@@ -176,6 +226,32 @@
 
   <section class="gower-hero reveal" id="home">
     <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80" alt="Gower Studio Interior" class="gower-hero-img">
+  </section>
+
+  <section class="gower-journal reveal" id="journal">
+    <div class="journal-grid">
+      <a href="#" class="journal-item">
+        <div class="journal-img-box">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Milano Exhibition">
+        </div>
+        <span class="journal-date">June 2026</span>
+        <h3 class="journal-title">GOWER at Milan Design Week: Redefining Abstract Geometry</h3>
+      </a>
+      <a href="#" class="journal-item">
+        <div class="journal-img-box">
+          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" alt="Craftsmanship Behind">
+        </div>
+        <span class="journal-date">April 2026</span>
+        <h3 class="journal-title">The Art of Balance: Exploring the Core Materials and Craftsmanship</h3>
+      </a>
+      <a href="#" class="journal-item">
+        <div class="journal-img-box">
+          <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80" alt="Studio Studio">
+        </div>
+        <span class="journal-date">March 2026</span>
+        <h3 class="journal-title">Editorial Perspective: Minimalism and the Future of Shared Spaces</h3>
+      </a>
+    </div>
   </section>
 
   <section class="gower-products reveal" id="product">
@@ -286,7 +362,6 @@
       let item = slider.querySelector('.gower-slide-item');
       if (!item) item = slider.querySelector('.wild-slide-item');
       
-      // ⚠️ [패치] 늘어난 여백만큼 JS 이동 거리에도 80px을 정확히 합산
       const moveWidth = item.offsetWidth + 80; 
       
       slider.style.scrollBehavior = 'smooth';
