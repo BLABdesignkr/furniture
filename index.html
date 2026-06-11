@@ -57,6 +57,35 @@
     .gower-hero { padding: 40px; margin-top: 20px; }
     .gower-hero-img { width: 100%; height: 75vh; object-fit: cover; border-radius: 0; }
 
+    /* ⚠️ [신규 매립] 2안: 타이포그래피 인트로 섹션 (시각적 쉼표 및 강약대비 확보) */
+    .gower-intro {
+      padding: 120px 40px;
+      text-align: center;
+      background-color: var(--gower-bg-white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .intro-headline {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
+      font-weight: 400;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+      color: var(--gower-text-black);
+      margin-bottom: 30px;
+    }
+    .intro-paragraph {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.8;
+      letter-spacing: 0.06em;
+      color: var(--gower-text-gray);
+      max-width: 650px;
+    }
+
     /* 4. 시그니처 공간 프로젝트 섹션 (패럴랙스) */
     .gower-project {
       position: relative;
@@ -106,6 +135,7 @@
 
     .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 0 40px; }
     
+    /* 슬라이드 간격 2배 확대 (80px) */
     .gower-slider {
       display: flex; gap: 80px; padding-bottom: 10px;
       overflow-x: auto; scroll-snap-type: x mandatory;
@@ -176,19 +206,24 @@
     .footer-info { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 0.75rem; color: var(--gower-text-gray); flex-wrap: wrap; }
     .footer-dot { font-size: 0.5rem; }
 
-    /* ⚠️ [패치 완료] 모바일 반응형 완벽 대응 */
+    /* 모바일 반응형 완벽 대응 */
     @media (max-width: 768px) {
-      /* 헤더 줄바꿈 및 간격 방지 최적화 */
       .gower-header { padding: 15px 20px; }
       .gower-logo { font-size: 1.1rem; letter-spacing: 0.15em; }
-      .gower-nav { gap: 12px; } /* 모바일에서는 메뉴 간격을 좁혀서 공간 확보 */
+      .gower-nav { gap: 12px; } 
       .gower-nav a { 
         font-size: 0.75rem; 
-        white-space: nowrap; /* 👈 절대 줄바꿈 방지 */
+        white-space: nowrap; /* 모바일 네비게이션 줄바꿈 절대 방지 */
       }
       
       .gower-hero { padding: 20px; margin-top: 0; }
       .gower-hero-img { height: 50vh; }
+      
+      /* 인트로 모바일 폰트 최적화 */
+      .gower-intro { padding: 80px 20px; }
+      .intro-headline { font-size: 1.8rem; margin-bottom: 20px; }
+      .intro-paragraph { font-size: 0.85rem; line-height: 1.7; }
+
       .gower-project { height: 50vh; }
       .project-title { font-size: 1.8rem; }
       .project-desc { font-size: 0.85rem; }
@@ -223,6 +258,11 @@
 
   <section class="gower-hero reveal" id="home">
     <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80" alt="Gower Studio Interior" class="gower-hero-img">
+  </section>
+
+  <section class="gower-intro reveal">
+    <h2 class="intro-headline">The Essence of<br>Structural Minimalism.</h2>
+    <p class="intro-paragraph">우리는 공간을 채우는 가구를 넘어, 공간의 호흡을 결정하는 구조적 미니멀리즘을 지향합니다. 절제된 형태와 정밀한 장인정신의 경계에서 GOWER만의 순수한 가치를 제안합니다.</p>
   </section>
 
   <section class="gower-project reveal" id="featured">
