@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
-    /* 1. 디자인 시스템 (Bower Studios White Tone) */
+    /* 1. 디자인 시스템 */
     :root {
       --gower-bg-white: #FFFFFF;
       --gower-text-black: #000000;
@@ -61,7 +61,7 @@
       letter-spacing: 0.05em; margin-bottom: 40px; text-align: center;
     }
 
-    /* 슬라이더 컨테이너 (화면 끝까지 닿아 흐르는 바우어 감성 100% 반영) */
+    /* 슬라이더 외부 컨테이너 */
     .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 0 40px; }
     .gower-slider {
       display: flex; gap: 40px; padding-bottom: 10px;
@@ -71,18 +71,21 @@
     .gower-slider::-webkit-scrollbar { display: none; }
     .gower-slider:active { cursor: grabbing; }
 
-    /* [패치] 바우어 오리지널 좌우 화살표 버튼 UI (원형 박스 배제, 순수 얇은 화살표) */
+    /* 슬라이드 화살표 공통 (바우어 스타일) */
     .slider-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
-      background: none; border: none; font-size: 1.8rem; color: var(--gower-text-black);
+      background: none; border: none; font-size: 1.5rem; color: var(--gower-text-black);
       cursor: pointer; z-index: 100; opacity: 0.3; transition: opacity 0.3s, transform 0.2s;
-      padding: 30px 10px;
+      padding: 20px 10px;
     }
     .slider-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
-    .slider-btn.prev { left: 40px; }
-    .slider-btn.next { right: 40px; }
+    
+    /* ---------------------------------------------------- */
+    /* 섹션 1: 컬렉션 슬라이드 (가로 35%, 높이 600px) */
+    /* ---------------------------------------------------- */
+    #productWrap .slider-btn.prev { left: 45px; }
+    #productWrap .slider-btn.next { right: 45px; }
 
-    /* 첫 번째 슬라이드 아이템 (기본 사이즈 35%) */
     .gower-slide-item {
       flex: 0 0 calc(35% - 20px);
       scroll-snap-align: start; overflow: hidden;
@@ -92,22 +95,30 @@
       transition: transform 0.6s ease; pointer-events: none;
     }
     .gower-slide-item:hover img { transform: scale(1.02); }
-
     .gower-product-name {
       margin-top: 15px; font-size: 0.9rem; font-family: var(--font-serif);
       letter-spacing: 0.05em; text-align: center;
     }
 
-    /* ⚠️ [핵심 전면 수정] 두 번째 슬라이드 아이템 (In The Wild)
-      바우어 캡처 시안과 동일하게 가로폭을 압도적으로 늘리고(85%), 
-      우측 끝에 다음 이미지가 아주 얇게 대기하도록 오리지널 비례감 마감.
-    */
-    .gower-slide-item.large {
-      flex: 0 0 calc(85% - 20px); /* 가로 85% 스케일로 시원하게 고정 */
+    /* ---------------------------------------------------- */
+    /* ⚠️ 섹션 2: In The Wild 슬라이드 (대폭 축소 패치 완료) */
+    /* ---------------------------------------------------- */
+    /* 바우어 오리지널처럼 화살표 위치를 컨텐츠 양 끝에 정밀하게 배치 */
+    #wildWrap .slider-btn.prev { left: 20px; }
+    #wildWrap .slider-btn.next { right: 20px; }
+    
+    /* 화면에 4개 이상 옹기종기 보이도록 이미지 폭과 높이를 아담하게 줄임 */
+    .wild-slide-item {
+      flex: 0 0 calc(22% - 20px); /* 가로 22% 스케일로 대폭 축소 */
+      scroll-snap-align: start; overflow: hidden;
     }
-    .gower-slide-item.large img {
-      height: 75vh; /* 와이드 스케일에 맞춰 깊이 있는 높이 부여 */
+    .wild-slide-item img {
+      width: 100%; 
+      height: 350px; /* 무식하게 컸던 75vh를 버리고 바우어 스타일의 세련된 높이로 축소 */
+      object-fit: cover; border-radius: 0;
+      transition: transform 0.6s ease; pointer-events: none;
     }
+    .wild-slide-item:hover img { transform: scale(1.02); }
 
     /* 5. 가로 풀사이즈 배너 */
     .gower-banner { width: 100vw; height: 300px; margin-left: calc(-50vw + 50%); position: relative; overflow: hidden; }
@@ -140,13 +151,14 @@
       .gower-products { padding: 60px 0; }
       .gower-slider-wrap { padding: 0 20px; }
       
-      /* 모바일 환경에서는 화면 스케일에 적합한 비율로 유연하게 복원 */
+      /* 모바일에서는 화면이 좁으므로 이미지 1~1.5개가 보이도록 비율 조정 */
       .gower-slide-item { flex: 0 0 calc(85% - 20px); }
       .gower-slide-item img { height: 400px; }
-      .gower-slide-item.large { flex: 0 0 calc(85% - 20px); }
-      .gower-slide-item.large img { height: 45vh; }
+      
+      .wild-slide-item { flex: 0 0 calc(60% - 10px); }
+      .wild-slide-item img { height: 300px; }
 
-      .slider-btn { display: none; /* 모바일은 스와이프 전용으로 화살표 미노출 */ }
+      .slider-btn { display: none; }
       .footer-links { flex-wrap: wrap; gap: 15px; }
       .footer-info { flex-direction: column; gap: 8px; }
       .footer-dot { display: none; }
@@ -171,7 +183,7 @@
   <section class="gower-products reveal" id="product">
     <h2 class="gower-section-title">Explore the Collection</h2>
     
-    <div class="gower-slider-wrap">
+    <div class="gower-slider-wrap" id="productWrap">
       <button class="slider-btn prev" onclick="moveSlider(this, -1)"><i class="fa-solid fa-chevron-left"></i></button>
       <button class="slider-btn next" onclick="moveSlider(this, 1)"><i class="fa-solid fa-chevron-right"></i></button>
       
@@ -196,22 +208,28 @@
     </div>
   </section>
 
-  <section class="gower-products reveal" id="wildSection" style="padding-top: 0;">
+  <section class="gower-products reveal" style="padding-top: 0;">
     <h2 class="gower-section-title">In The Wild</h2>
     
-    <div class="gower-slider-wrap">
+    <div class="gower-slider-wrap" id="wildWrap">
       <button class="slider-btn prev" onclick="moveSlider(this, -1)"><i class="fa-solid fa-chevron-left"></i></button>
       <button class="slider-btn next" onclick="moveSlider(this, 1)"><i class="fa-solid fa-chevron-right"></i></button>
       
       <div class="gower-slider">
-        <div class="gower-slide-item large">
-          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=80" alt="Lifestyle 1">
+        <div class="wild-slide-item">
+          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 1">
         </div>
-        <div class="gower-slide-item large">
-          <img src="https://images.unsplash.com/photo-1592928302636-c83cf1e1c887?auto=format&fit=crop&w=1600&q=80" alt="Lifestyle 2">
+        <div class="wild-slide-item">
+          <img src="https://images.unsplash.com/photo-1592928302636-c83cf1e1c887?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 2">
         </div>
-        <div class="gower-slide-item large">
-          <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=1600&q=80" alt="Lifestyle 3">
+        <div class="wild-slide-item">
+          <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 3">
+        </div>
+        <div class="wild-slide-item">
+          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 4">
+        </div>
+        <div class="wild-slide-item">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 5">
         </div>
       </div>
     </div>
@@ -267,13 +285,15 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
-    /* 2. 화살표 버튼 클릭 시 슬라이드 스무스 이동 함수 (바우어 물리력 반영) */
+    /* 2. 화살표 버튼 클릭 시 슬라이드 스무스 이동 함수 */
     function moveSlider(btn, direction) {
       const wrap = btn.closest('.gower-slider-wrap');
       const slider = wrap.querySelector('.gower-slider');
-      const item = slider.querySelector('.gower-slide-item');
       
-      // 개별 이미지 박스 크기 + 사이 간격(40px)을 계산해 1장 단위로 깔끔하게 피드
+      // 첫 번째 슬라이드인지 두 번째 슬라이드인지에 따라 타겟 아이템 선택
+      let item = slider.querySelector('.gower-slide-item');
+      if (!item) item = slider.querySelector('.wild-slide-item');
+      
       const moveWidth = item.offsetWidth + 40; 
       
       slider.style.scrollBehavior = 'smooth';
