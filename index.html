@@ -63,8 +63,10 @@
 
     /* 슬라이더 외부 컨테이너 */
     .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 0 40px; }
+    
+    /* ⚠️ [패치] 슬라이드 간격 2배 확대 (40px -> 80px) */
     .gower-slider {
-      display: flex; gap: 40px; padding-bottom: 10px;
+      display: flex; gap: 80px; padding-bottom: 10px;
       overflow-x: auto; scroll-snap-type: x mandatory;
       -ms-overflow-style: none; scrollbar-width: none; cursor: grab;
     }
@@ -81,13 +83,13 @@
     .slider-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
     
     /* ---------------------------------------------------- */
-    /* 섹션 1: 컬렉션 슬라이드 (가로 35%, 높이 600px) */
+    /* 섹션 1: 컬렉션 슬라이드 */
     /* ---------------------------------------------------- */
     #productWrap .slider-btn.prev { left: 45px; }
     #productWrap .slider-btn.next { right: 45px; }
 
     .gower-slide-item {
-      flex: 0 0 calc(35% - 20px);
+      flex: 0 0 calc(35% - 40px); /* 늘어난 여백만큼 폭 정밀 조정 */
       scroll-snap-align: start; overflow: hidden;
     }
     .gower-slide-item img {
@@ -101,21 +103,17 @@
     }
 
     /* ---------------------------------------------------- */
-    /* ⚠️ 섹션 2: In The Wild 슬라이드 (대폭 축소 패치 완료) */
+    /* 섹션 2: In The Wild 슬라이드 (바우어 아담한 사이즈 유지) */
     /* ---------------------------------------------------- */
-    /* 바우어 오리지널처럼 화살표 위치를 컨텐츠 양 끝에 정밀하게 배치 */
     #wildWrap .slider-btn.prev { left: 20px; }
     #wildWrap .slider-btn.next { right: 20px; }
     
-    /* 화면에 4개 이상 옹기종기 보이도록 이미지 폭과 높이를 아담하게 줄임 */
     .wild-slide-item {
-      flex: 0 0 calc(22% - 20px); /* 가로 22% 스케일로 대폭 축소 */
+      flex: 0 0 calc(22% - 40px); /* 늘어난 여백 반영 */
       scroll-snap-align: start; overflow: hidden;
     }
     .wild-slide-item img {
-      width: 100%; 
-      height: 350px; /* 무식하게 컸던 75vh를 버리고 바우어 스타일의 세련된 높이로 축소 */
-      object-fit: cover; border-radius: 0;
+      width: 100%; height: 350px; object-fit: cover; border-radius: 0;
       transition: transform 0.6s ease; pointer-events: none;
     }
     .wild-slide-item:hover img { transform: scale(1.02); }
@@ -151,7 +149,7 @@
       .gower-products { padding: 60px 0; }
       .gower-slider-wrap { padding: 0 20px; }
       
-      /* 모바일에서는 화면이 좁으므로 이미지 1~1.5개가 보이도록 비율 조정 */
+      .gower-slider { gap: 40px; } /* 모바일에서는 간격을 조금 줄임 */
       .gower-slide-item { flex: 0 0 calc(85% - 20px); }
       .gower-slide-item img { height: 400px; }
       
@@ -216,21 +214,16 @@
       <button class="slider-btn next" onclick="moveSlider(this, 1)"><i class="fa-solid fa-chevron-right"></i></button>
       
       <div class="gower-slider">
-        <div class="wild-slide-item">
-          <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 1">
-        </div>
-        <div class="wild-slide-item">
-          <img src="https://images.unsplash.com/photo-1592928302636-c83cf1e1c887?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 2">
-        </div>
-        <div class="wild-slide-item">
-          <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 3">
-        </div>
-        <div class="wild-slide-item">
-          <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 4">
-        </div>
-        <div class="wild-slide-item">
-          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 5">
-        </div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 1"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1592928302636-c83cf1e1c887?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 2"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 3"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 4"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 5"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 6"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 7"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1615529182904-14819c35db37?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 8"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1631679706909-1844bbd07221?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 9"></div>
+        <div class="wild-slide-item"><img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80" alt="Lifestyle 10"></div>
       </div>
     </div>
   </section>
@@ -290,11 +283,11 @@
       const wrap = btn.closest('.gower-slider-wrap');
       const slider = wrap.querySelector('.gower-slider');
       
-      // 첫 번째 슬라이드인지 두 번째 슬라이드인지에 따라 타겟 아이템 선택
       let item = slider.querySelector('.gower-slide-item');
       if (!item) item = slider.querySelector('.wild-slide-item');
       
-      const moveWidth = item.offsetWidth + 40; 
+      // ⚠️ [패치] 늘어난 여백만큼 JS 이동 거리에도 80px을 정확히 합산
+      const moveWidth = item.offsetWidth + 80; 
       
       slider.style.scrollBehavior = 'smooth';
       slider.scrollLeft += (moveWidth * direction);
