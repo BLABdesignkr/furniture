@@ -54,22 +54,33 @@
     .gower-hero { padding: 40px; margin-top: 20px; }
     .gower-hero-img { width: 100%; height: 75vh; object-fit: cover; border-radius: 0; }
 
-    /* 4. 제품 슬라이드 공통 (가로 스크롤 & 스냅) */
-    .gower-products { padding: 80px 0 80px 40px; }
+    /* 4. 제품 슬라이드 섹션 공통 구조 */
+    .gower-products { padding: 80px 0; position: relative; }
     .gower-section-title {
       font-family: var(--font-sans); font-size: 1.1rem; font-weight: 400;
-      letter-spacing: 0.05em; margin-bottom: 50px; text-align: center; padding-right: 40px;
+      letter-spacing: 0.05em; margin-bottom: 50px; text-align: center;
     }
 
-    /* 슬라이더 컨테이너 */
-    .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; }
+    /* 슬라이더 외부 랩 및 내부 컨테이너 */
+    .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 0 40px; }
     .gower-slider {
-      display: flex; gap: 40px; padding-right: 40px; padding-bottom: 20px;
+      display: flex; gap: 40px; padding-bottom: 20px;
       overflow-x: auto; scroll-snap-type: x mandatory;
       -ms-overflow-style: none; scrollbar-width: none; cursor: grab;
     }
     .gower-slider::-webkit-scrollbar { display: none; }
     .gower-slider:active { cursor: grabbing; }
+
+    /* 슬라이드 화살표 버튼 공통 (바우어 스타일 미니멀 룩) */
+    .slider-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: none; border: none; font-size: 1.5rem; color: var(--gower-text-black);
+      cursor: pointer; z-index: 10; opacity: 0.4; transition: opacity 0.3s ease;
+      padding: 20px 10px;
+    }
+    .slider-btn:hover { opacity: 1; }
+    .slider-btn.prev { left: 45px; }
+    .slider-btn.next { right: 45px; }
 
     /* 첫 번째 슬라이드 아이템 (기본 사이즈 35%) */
     .gower-slide-item {
@@ -87,13 +98,17 @@
       letter-spacing: 0.05em; text-align: center;
     }
 
-    /* [추가] 두 번째 슬라이드 아이템 (거대한 사이즈 85%) */
+    /* [패치] 두 번째 슬라이드 아이템 (바우어 1:1 세로형 포트레이트 비율 - 60%) */
     .gower-slide-item.large {
-      flex: 0 0 calc(85% - 40px); /* 화면의 85%를 꽉 채우는 압도적 스케일 */
+      flex: 0 0 calc(60% - 20px); /* 가로폭을 60%로 슬림하게 세팅하여 완벽한 여백 유지 */
     }
     .gower-slide-item.large img {
-      height: 75vh; /* 세로로도 더 깊게 설정 */
+      height: 80vh; /* 세로로 깊은 장신 형태의 하이엔드 구도 */
     }
+
+    /* 두 번째 슬라이드 화살표 정밀 조정 (이미지 틀 안쪽으로 배치) */
+    #wildSection .slider-btn.prev { left: 55px; }
+    #wildSection .slider-btn.next { right: calc(40% + 15px); } /* 이미지 폭 60% 영역의 오른쪽에 절묘하게 배치 */
 
     /* 5. 가로 풀사이즈 배너 */
     .gower-banner { width: 100vw; height: 300px; margin-left: calc(-50vw + 50%); position: relative; overflow: hidden; }
@@ -108,7 +123,7 @@
     .newsletter-form button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--gower-text-black); }
     .newsletter-bottom-text { font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.05em; }
 
-    /* 7. 푸터 ([수정] gower 텍스트 교체) */
+    /* 7. 푸터 ([패치] Gower 완전 교체) */
     .gower-footer { padding: 80px 40px 40px 40px; text-align: center; }
     .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
     .footer-links a { text-decoration: none; color: var(--gower-text-black); font-size: 0.8rem; font-family: var(--font-sans); }
@@ -118,19 +133,24 @@
     .footer-dot { font-size: 0.5rem; }
 
     /* 모바일 반응형 */
+    @media (max-width: 1024px) {
+      #wildSection .slider-btn.next { right: 45px; } /* 태블릿 이하에서는 버튼을 화면 양끝으로 복원 */
+    }
     @media (max-width: 768px) {
       .gower-header { padding: 20px; }
       .gower-logo { font-size: 1.2rem; }
       .gower-hero { padding: 20px; margin-top: 0; }
       .gower-hero-img { height: 50vh; }
-      .gower-products { padding: 60px 0 60px 20px; }
+      .gower-products { padding: 60px 0; }
+      .gower-slider-wrap { padding: 0 20px; }
       
-      /* 모바일에서는 기본/대형 슬라이드 모두 화면에 꽉 차게 조절 */
+      /* 모바일 레이아웃 최적화 */
       .gower-slide-item { flex: 0 0 calc(85% - 20px); }
       .gower-slide-item img { height: 400px; }
-      .gower-slide-item.large { flex: 0 0 calc(90% - 10px); }
-      .gower-slide-item.large img { height: 50vh; }
+      .gower-slide-item.large { flex: 0 0 calc(85% - 20px); }
+      .gower-slide-item.large img { height: 55vh; }
 
+      .slider-btn { display: none; /* 모바일에서는 화살표를 숨기고 손가락 스와이프에만 집중 */ }
       .footer-links { flex-wrap: wrap; gap: 15px; }
       .footer-info { flex-direction: column; gap: 8px; }
       .footer-dot { display: none; }
@@ -156,6 +176,9 @@
     <h2 class="gower-section-title">Explore the Collection</h2>
     
     <div class="gower-slider-wrap">
+      <button class="slider-btn prev" onclick="moveSlider(this, -1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="slider-btn next" onclick="moveSlider(this, 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      
       <div class="gower-slider">
         <div class="gower-slide-item">
           <img src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=800&q=80" alt="Chair">
@@ -177,10 +200,13 @@
     </div>
   </section>
 
-  <section class="gower-products reveal" style="padding-top: 0;">
+  <section class="gower-products reveal" id="wildSection" style="padding-top: 0;">
     <h2 class="gower-section-title">In The Wild</h2>
     
     <div class="gower-slider-wrap">
+      <button class="slider-btn prev" onclick="moveSlider(this, -1)"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="slider-btn next" onclick="moveSlider(this, 1)"><i class="fa-solid fa-chevron-right"></i></button>
+      
       <div class="gower-slider">
         <div class="gower-slide-item large">
           <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1600&q=80" alt="Lifestyle 1">
@@ -232,7 +258,7 @@
   </footer>
 
   <script>
-    /* 페이드인 애니메이션 */
+    /* 1. 페이드인 애니메이션 */
     const revealElements = document.querySelectorAll('.reveal');
     const revealOnScroll = () => {
       const windowHeight = window.innerHeight;
@@ -245,7 +271,20 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
-    /* 모든 슬라이더에 마우스 드래그(스와이프) 다중 적용 스크립트 */
+    /* 2. 화살표 버튼 클릭 시 슬라이드 이동 함수 (Snap 스크롤 연동) */
+    function moveSlider(btn, direction) {
+      const wrap = btn.closest('.gower-slider-wrap');
+      const slider = wrap.querySelector('.gower-slider');
+      const item = slider.querySelector('.gower-slide-item');
+      
+      // 개별 아이템 폭 + 간격(40px) 계산하여 정확하게 1장씩 이동
+      const moveWidth = item.offsetWidth + 40; 
+      
+      slider.style.scrollBehavior = 'smooth';
+      slider.scrollLeft += (moveWidth * direction);
+    }
+
+    /* 3. 마우스 드래그(스와이프) 기능 (다중 슬라이더 지원) */
     const sliders = document.querySelectorAll('.gower-slider');
     
     sliders.forEach(slider => {
@@ -255,23 +294,27 @@
 
       slider.addEventListener('mousedown', (e) => {
         isDown = true;
-        slider.style.scrollSnapType = 'none'; // 드래그 중에는 스냅 해제
+        slider.style.scrollBehavior = 'auto'; // 드래그 시에는 실시간 반응을 위해 스무스 해제
+        slider.style.scrollSnapType = 'none';   // 드래그 중에는 탁탁 끊기는 현상 방지
         startX = e.pageX - slider.offsetLeft;
         scrollLeft = slider.scrollLeft;
       });
-      slider.addEventListener('mouseleave', () => { 
+      
+      const endDrag = () => {
+        if (!isDown) return;
         isDown = false; 
-        slider.style.scrollSnapType = 'x mandatory'; 
-      });
-      slider.addEventListener('mouseup', () => { 
-        isDown = false; 
-        slider.style.scrollSnapType = 'x mandatory'; 
-      });
+        slider.style.scrollBehavior = 'smooth';
+        slider.style.scrollSnapType = 'x mandatory'; // 드래그 끝나면 자석처럼 스냅 복원
+      };
+
+      slider.addEventListener('mouseleave', endDrag);
+      slider.addEventListener('mouseup', endDrag);
+      
       slider.addEventListener('mousemove', (e) => {
         if (!isDown) return;
         e.preventDefault();
         const x = e.pageX - slider.offsetLeft;
-        const walk = (x - startX) * 2; // 스크롤 속도 조절
+        const walk = (x - startX) * 1.5; // 드래그 텐션 속도
         slider.scrollLeft = scrollLeft - walk;
       });
     });
