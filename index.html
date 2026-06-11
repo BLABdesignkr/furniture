@@ -47,73 +47,65 @@
       letter-spacing: 0.3em; text-decoration: none; color: var(--gower-text-black);
     }
     .gower-nav { display: flex; gap: 40px; }
-    .gower-nav a { text-decoration: none; color: var(--gower-text-black); font-size: 0.85rem; letter-spacing: 0.05em; transition: color 0.3s; }
+    .gower-nav a { 
+      text-decoration: none; color: var(--gower-text-black); font-size: 0.85rem; 
+      letter-spacing: 0.05em; transition: color 0.3s; 
+    }
     .gower-nav a:hover { color: var(--gower-text-gray); }
 
     /* 3. 히어로 */
     .gower-hero { padding: 40px; margin-top: 20px; }
     .gower-hero-img { width: 100%; height: 75vh; object-fit: cover; border-radius: 0; }
 
-    /* ⚠️ [신규 추가] 저널 & 프레스 섹션 (3열 미니멀 에디토리얼 레이아웃) */
-    .gower-journal { padding: 80px 40px 40px 40px; }
-    .journal-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      max-width: 100%;
-    }
-    .journal-item {
-      text-decoration: none;
-      color: var(--gower-text-black);
-      display: flex;
-      flex-direction: column;
-    }
-    .journal-img-box {
-      width: 100%;
-      height: 450px;
+    /* 4. 시그니처 공간 프로젝트 섹션 (패럴랙스) */
+    .gower-project {
+      position: relative;
+      width: 100vw;
+      height: 70vh;
+      margin-left: calc(-50vw + 50%);
       overflow: hidden;
-      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      text-align: center;
     }
-    .journal-img-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 0;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    .project-parallax-bg {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 120%; 
+      background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed; 
+      filter: brightness(0.75); 
+      z-index: 1;
     }
-    .journal-item:hover .journal-img-box img {
-      transform: scale(1.03);
+    @media (pointer: coarse) {
+      .project-parallax-bg { background-attachment: scroll; height: 100%; }
     }
-    .journal-date {
-      font-size: 0.75rem;
-      color: var(--gower-text-gray);
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-      text-transform: uppercase;
+    .project-content { position: relative; z-index: 2; padding: 0 20px; max-width: 800px; }
+    .project-tag {
+      font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.7); margin-bottom: 15px; display: block;
     }
-    .journal-title {
-      font-family: var(--font-serif);
-      font-size: 1.15rem;
-      font-weight: 400;
-      line-height: 1.4;
-      letter-spacing: 0.02em;
-      transition: color 0.3s ease;
+    .project-title {
+      font-family: var(--font-serif); font-size: 2.5rem; font-weight: 400;
+      letter-spacing: 0.02em; line-height: 1.3; margin-bottom: 20px;
     }
-    .journal-item:hover .journal-title {
-      color: var(--gower-text-gray);
+    .project-desc {
+      font-size: 0.95rem; font-weight: 300; line-height: 1.6;
+      letter-spacing: 0.05em; color: rgba(255, 255, 255, 0.9);
     }
 
-    /* 4. 제품 슬라이드 섹션 공통 구조 */
+    /* 5. 제품 슬라이드 섹션 공통 구조 */
     .gower-products { padding: 80px 0; position: relative; }
     .gower-section-title {
       font-family: var(--font-sans); font-size: 1.1rem; font-weight: 400;
       letter-spacing: 0.05em; margin-bottom: 40px; text-align: center;
     }
 
-    /* 슬라이더 외부 컨테이너 */
     .gower-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 0 40px; }
     
-    /* 슬라이드 간격 2배 확대 (80px) */
     .gower-slider {
       display: flex; gap: 80px; padding-bottom: 10px;
       overflow-x: auto; scroll-snap-type: x mandatory;
@@ -122,7 +114,6 @@
     .gower-slider::-webkit-scrollbar { display: none; }
     .gower-slider:active { cursor: grabbing; }
 
-    /* 슬라이드 화살표 공통 */
     .slider-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
       background: none; border: none; font-size: 1.5rem; color: var(--gower-text-black);
@@ -131,7 +122,7 @@
     }
     .slider-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.1); }
     
-    /* 섹션 1: 컬렉션 슬라이드 */
+    /* 컬렉션 슬라이드 */
     #productWrap .slider-btn.prev { left: 45px; }
     #productWrap .slider-btn.next { right: 45px; }
 
@@ -149,7 +140,7 @@
       letter-spacing: 0.05em; text-align: center;
     }
 
-    /* 섹션 2: In The Wild 슬라이드 (아담한 사이즈) */
+    /* In The Wild 슬라이드 */
     #wildWrap .slider-btn.prev { left: 20px; }
     #wildWrap .slider-btn.next { right: 20px; }
     
@@ -163,11 +154,11 @@
     }
     .wild-slide-item:hover img { transform: scale(1.02); }
 
-    /* 5. 가로 풀사이즈 배너 */
+    /* 6. 풀사이즈 배너 */
     .gower-banner { width: 100vw; height: 300px; margin-left: calc(-50vw + 50%); position: relative; overflow: hidden; }
     .gower-banner img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
 
-    /* 6. 뉴스레터 */
+    /* 7. 뉴스레터 */
     .gower-newsletter { padding: 120px 20px; text-align: center; }
     .newsletter-top-text { font-family: var(--font-serif); font-size: 1rem; font-style: italic; color: var(--gower-text-gray); margin-bottom: 20px; }
     .newsletter-form { max-width: 450px; margin: 0 auto 15px auto; display: flex; align-items: center; border-bottom: 1px solid var(--gower-text-black); padding-bottom: 8px; }
@@ -176,7 +167,7 @@
     .newsletter-form button { background: none; border: none; cursor: pointer; font-size: 1.2rem; color: var(--gower-text-black); }
     .newsletter-bottom-text { font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0.05em; }
 
-    /* 7. 푸터 */
+    /* 8. 푸터 */
     .gower-footer { padding: 80px 40px 40px 40px; text-align: center; }
     .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
     .footer-links a { text-decoration: none; color: var(--gower-text-black); font-size: 0.8rem; font-family: var(--font-sans); }
@@ -185,16 +176,22 @@
     .footer-info { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 0.75rem; color: var(--gower-text-gray); flex-wrap: wrap; }
     .footer-dot { font-size: 0.5rem; }
 
-    /* 모바일 반응형 */
-    @media (max-width: 900px) {
-      .journal-grid { grid-template-columns: 1fr; gap: 40px; } /* 모바일에서는 세로 1열 배치 */
-      .journal-img-box { height: 350px; }
-    }
+    /* ⚠️ [패치 완료] 모바일 반응형 완벽 대응 */
     @media (max-width: 768px) {
-      .gower-header { padding: 20px; }
-      .gower-logo { font-size: 1.2rem; }
+      /* 헤더 줄바꿈 및 간격 방지 최적화 */
+      .gower-header { padding: 15px 20px; }
+      .gower-logo { font-size: 1.1rem; letter-spacing: 0.15em; }
+      .gower-nav { gap: 12px; } /* 모바일에서는 메뉴 간격을 좁혀서 공간 확보 */
+      .gower-nav a { 
+        font-size: 0.75rem; 
+        white-space: nowrap; /* 👈 절대 줄바꿈 방지 */
+      }
+      
       .gower-hero { padding: 20px; margin-top: 0; }
       .gower-hero-img { height: 50vh; }
+      .gower-project { height: 50vh; }
+      .project-title { font-size: 1.8rem; }
+      .project-desc { font-size: 0.85rem; }
       .gower-products { padding: 60px 0; }
       .gower-slider-wrap { padding: 0 20px; }
       
@@ -218,7 +215,7 @@
     <a href="#" class="gower-logo">G O W E R</a>
     <nav class="gower-nav">
       <a href="#home">홈</a>
-      <a href="#journal">저널</a>
+      <a href="#featured">프로젝트</a>
       <a href="#product">제품</a>
       <a href="#contact">문의</a>
     </nav>
@@ -228,29 +225,12 @@
     <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80" alt="Gower Studio Interior" class="gower-hero-img">
   </section>
 
-  <section class="gower-journal reveal" id="journal">
-    <div class="journal-grid">
-      <a href="#" class="journal-item">
-        <div class="journal-img-box">
-          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Milano Exhibition">
-        </div>
-        <span class="journal-date">June 2026</span>
-        <h3 class="journal-title">GOWER at Milan Design Week: Redefining Abstract Geometry</h3>
-      </a>
-      <a href="#" class="journal-item">
-        <div class="journal-img-box">
-          <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80" alt="Craftsmanship Behind">
-        </div>
-        <span class="journal-date">April 2026</span>
-        <h3 class="journal-title">The Art of Balance: Exploring the Core Materials and Craftsmanship</h3>
-      </a>
-      <a href="#" class="journal-item">
-        <div class="journal-img-box">
-          <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80" alt="Studio Studio">
-        </div>
-        <span class="journal-date">March 2026</span>
-        <h3 class="journal-title">Editorial Perspective: Minimalism and the Future of Shared Spaces</h3>
-      </a>
+  <section class="gower-project reveal" id="featured">
+    <div class="project-parallax-bg"></div>
+    <div class="project-content">
+      <span class="project-tag">Featured Project</span>
+      <h2 class="project-title">The Amagansett House</h2>
+      <p class="project-desc">A harmonic synthesis of raw brutalist architectural framing and custom-sculpted organic GOWER furniture accents. Designed to breathe alongside the shifting shadows of the Atlantic coast.</p>
     </div>
   </section>
 
